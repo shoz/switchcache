@@ -1,4 +1,4 @@
-# -*- conding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from nose.tools import raises
 from switchcache import *
@@ -31,19 +31,21 @@ class TestConfigured:
     def setup(self):
         init(Configure)
         @with_cache
-        def test_with_cache():
+        def test_with_cache(s):
             for k, v in Configure.CACHE.items():
                 assert mc.get(k) == v
+            return s
         @no_cache
-        def test_no_cache():
+        def test_no_cache(s):
             for k, v in Configure.CACHE.items():
                 assert mc.get(k) == None
+            return s
         self.test_with_cache = test_with_cache
         self.test_no_cache = test_no_cache
     def test_with_cache_entity(self):
-        self.test_with_cache()
+        assert self.test_with_cache('test') == 'test'
     def test_no_cache_entity(self):
-        self.test_no_cache()
+        assert self.test_no_cache('test') == 'test'
     def test_with_clause(self):
         with cache:
             for k, v in Configure.CACHE.items():
@@ -52,3 +54,18 @@ class TestConfigured:
             assert mc.get(k) == None
     def teardown(self):
         init(None)
+
+class TestTimes:
+    def test_times(self):
+        @times(3)
+        def echo(x):
+            return x
+        ret = echo('test')
+        assert ret == ['test', 'test', 'test']
+    def test_twice(self):
+        @twice
+        def echo(x):
+            return x
+        ret = echo('test')
+        assert ret == ['test', 'test']
+
