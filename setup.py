@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='switchcache',
-    version='0.0.1',
+    version='0.0.2',
     description='Utils for testing with/without cache',
     author='Shoji Ihara',
     author_email='shoji.ihara@gmail.com',
@@ -19,6 +19,10 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
     ),
+    install_requires=[
+        'nose==1.3.3',
+        'python-memcached==1.53'
+    ],
     tests_require=['nose'],
     test_suite = 'nose.collector'
 )
