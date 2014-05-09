@@ -1,5 +1,5 @@
 switchcache
-===
+====
 
 Test utils for testing with memcache
 
@@ -29,6 +29,7 @@ def test_no_cache():
 
 ```python
 from switchcache import cache
+
 def test():
     with cache:
        <Cache enabled inside "with">
@@ -45,14 +46,12 @@ def test_twice(s):
     return s
 >>> test_twice('foo')
 ['foo', 'foo']
-
     
 @times(5)
 def test_5_times(s):
     return s
 >>> test_5_times('bar')
 ['bar', 'bar', 'bar', 'bar', 'bar']
-
 ```
 
 ## Note
