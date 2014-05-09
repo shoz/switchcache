@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='switchcache',
-    version='0.1.0',
+    version='0.1.1',
     description='Utils for testing with/without cache',
     author='Shoji Ihara',
     author_email='shoji.ihara@gmail.com',
