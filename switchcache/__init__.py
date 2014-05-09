@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__all__ = ['init', 'with_cache', 'no_cache', 'cache']
+__all__ = ['init', 'with_cache', 'no_cache', 'cache', 'times', 'twice']
 
 import functools
 import memcache
@@ -20,7 +20,7 @@ def with_cache(testfunc):
     @functools.wraps(testfunc)
     def wrapper(*args, **kwargs):
         _build_cache(_config['obj'])
-        result = testfunc()
+        result = testfunc(*args, **kwargs)
         _clear_cache(_config['obj'])
         return result
     return wrapper
@@ -50,3 +50,15 @@ class Cache():
 
 cache = Cache()
 
+def times(n):
+    def wrapper1(testfunc):
+        @functools.wraps(testfunc)
+        def wrapper2(*args, **kwargs):
+            results = []
+            for i in range(n):
+                results.append(testfunc(*args, **kwargs))
+            return results
+        return wrapper2
+    return wrapper1
+
+twice = times(2)

@@ -6,4 +6,3 @@ man
 .Python
 *.pyc
 *.egg-INFO
-*.rst
