@@ -54,3 +54,18 @@ class TestConfigured:
             assert mc.get(k) == None
     def teardown(self):
         init(None)
+
+class TestTimes:
+    def test_times(self):
+        @times(3)
+        def echo(x):
+            return x
+        ret = echo('test')
+        assert ret == ['test', 'test', 'test']
+    def test_twice(self):
+        @twice
+        def echo(x):
+            return x
+        ret = echo('test')
+        assert ret == ['test', 'test']
+
