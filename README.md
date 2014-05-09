@@ -39,7 +39,7 @@ def test():
     <Cache disabled outside "with">
 ```
 
-### Note
+## Note
 
 Make sure HOSTS point to a your testing environment.
 Your current caches on memcache will be flushed & overrided.
