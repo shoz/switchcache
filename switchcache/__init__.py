@@ -20,7 +20,7 @@ def with_cache(testfunc):
     @functools.wraps(testfunc)
     def wrapper(*args, **kwargs):
         _build_cache(_config['obj'])
-        result = testfunc()
+        result = testfunc(*args, **kwargs)
         _clear_cache(_config['obj'])
         return result
     return wrapper
