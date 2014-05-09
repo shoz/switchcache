@@ -28,8 +28,12 @@ def with_cache(testfunc):
 def no_cache(testfunc):
     if _config['obj'] == None:
         raise NotConfiguredYet(_msg)
-    _clear_cache(_config['obj'])
-    return testfunc
+    @functools.wraps(testfunc)
+    def wrapper(*args, **kwargs):
+        _clear_cache(_config['obj'])
+        result = testfunc(*args, **kwargs)
+        return result
+    return wrapper
 
 def _build_cache(config_obj):
     mc = memcache.Client(config_obj.HOSTS)
